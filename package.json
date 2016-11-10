@@ -1,0 +1,23 @@
+{
+  "name": "express-m-router",
+  "version": "0.1.0",
+  "description": "mount all files in an folder as routes in an express application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/cyyyu/express-m-router"
+  },
+  "keywords": [
+    "express",
+    "route"
+  ],
+  "author": "cyyyu",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0",
+    "lodash": "^4.16.6"
+  }
+}
