@@ -28,7 +28,7 @@ exports = module.exports = function(app, rootPath) {
 
     let fileName = '/' + file.replace(/\..+$|index/gi, '').replace('!', ':')
 
-    let t = require(path.join('..', rootPath, file));
+    let t = require(path.join(rootPath, file));
 
     t.get && router.get(fileName, t.get);
     t.post && router.post(fileName, t.post);
