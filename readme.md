@@ -49,13 +49,13 @@ exports.get = function(req, res) {
 ```
 
 ```Javascript
-// routes/test/test.js
+// routes/test/!test.js
 exports.get = function(req, res) {
 	res.send(req.params.test)
 }
 ```
 
-After that. In ternimal do `npm install` and `node app.js`.
+After that. In ternimal do `npm install express express-m-router` and `node app.js`.
 
 And open your browser `http://localhost:4000`, `http://localhost:4000/test/hello-world`
 
