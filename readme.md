@@ -1,12 +1,22 @@
-express-m-router可以将项目中指定某个文件夹下的所有模块挂载到路由上。
+express-m-router mounts all modules in a specify folder as routes to your express project.
 
-只可以在基于express的nodejs项目中使用。
+### Installation
 
-### 使用
+Using npm
+
+`npm install --save express-m-router` 
+
+Using yarn
+
+`yarn add express-m-router`
+
+### Simple usage
 
 `require('express-m-router')(expressApp, path.join(__dirname, routesDir))`
 
-### 示例
+### Example
+
+Create a tiny project following the below architecture.
 
 ```
 -- app.js
@@ -15,6 +25,8 @@ express-m-router可以将项目中指定某个文件夹下的所有模块挂载�
   |  |-- !test.js
   |__ index.js
 ```
+
+And create these files.
 
 ```Javascript
 // app.js
@@ -43,13 +55,11 @@ exports.get = function(req, res) {
 }
 ```
 
-运行`node app.js`。
+After that. In ternimal do `npm install` and `node app.js`.
 
-浏览器中打开`http://localhost:4000`及`http://localhost:4000/test/hello-world`
+And open your browser `http://localhost:4000`, `http://localhost:4000/test/hello-world`
 
-### 说明
-
-* 路由地址即文件名。
-* 文件名中若有`!`，则被替换为`:`，即表示这是个变量，可从req.params中获取，参考上面的示例。
-* 仅支持get，post，模块中也只需要暴露这两个方法，均非必须。
+* Routes name are files name.
+* If a file name includes '!' , it will be replace with ';'. That means it's a variable which you can get with `req.params`.
+* Support http **get** and **post**, just exports them in you route modules as the above example project do(optional).
 
