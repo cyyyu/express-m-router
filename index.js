@@ -5,6 +5,14 @@ let router = require('express').Router();
 let path = require('path');
 let isDir = require('./lib/is-dir');
 let concat = require('lodash').concat;
+let includes = require('lodash').includes;
+
+let moveToLast = function(tmparray, f) {
+  return concat(
+    tmparray.filter(item => !includes(item, f)),
+    tmparray.filter(item => includes(item, f))
+  )
+}
 
 exports = module.exports = function(app, rootPath) {
 
@@ -24,7 +32,8 @@ exports = module.exports = function(app, rootPath) {
     return tmp;
   }
 
-  read(rootPath).forEach((file) => {
+
+  moveToLast(read(rootPath), '!').forEach((file) => {
 
     let fileName = '/' + file.replace(/\..+$|index/gi, '').replace('!', ':')
 
