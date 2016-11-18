@@ -21,11 +21,12 @@ exports = module.exports = function(app, rootPath) {
 
     fs.readdirSync(p).forEach((file) => {
       if (isDir(path.join(p, file))) {
+        
         let a = read(path.join(p, file), file);
 
         tmp = concat(tmp, a)
       } else {
-        tmp.push(dirname ? `${dirname}/${file}` : file)
+        tmp.push(dirname ? path.join(p, file).replace(rootPath, '') : `/${file}`)
       }
     })
 
@@ -35,7 +36,7 @@ exports = module.exports = function(app, rootPath) {
 
   moveToLast(read(rootPath), '!').forEach((file) => {
 
-    let fileName = '/' + file.replace(/\..+$|index/gi, '').replace('!', ':')
+    let fileName = file.replace(/\..+$|index/gi, '').replace('!', ':')
 
     let t = require(path.join(rootPath, file));
 
