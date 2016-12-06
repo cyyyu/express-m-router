@@ -26,7 +26,7 @@ exports = module.exports = function(app, rootPath) {
 
         tmp = concat(tmp, a)
       } else {
-        tmp.push(dirname ? path.join(p, file).replace(rootPath, '') : `/${file}`)
+        tmp.push(dirname ? path.join(p, file).replace(rootPath, '').replace(/\\/gi, '/') : `/${file}`)
       }
     })
 
