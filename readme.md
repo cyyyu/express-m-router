@@ -12,11 +12,20 @@ Using yarn
 
 ### Simple usage
 
-`require('express-m-router')(expressApp, path.join(__dirname, routesDir))`
+```
+require('express-m-router')(expressApp, path.join(__dirname, routesDir))
+
+// or
+
+require('express-m-router')(expressApp, {
+  path: path.join(__dirname, routesDir), // required
+  ignores: /\.swp$/g // optional
+})
+``
 
 ### Example
 
-Create a tiny project following the below architecture.
+Create a project following the below architecture.
 
 ```
 -- app.js
@@ -28,7 +37,7 @@ Create a tiny project following the below architecture.
 
 And create these files.
 
-```Javascript
+​```Javascript
 // app.js
 'use strict'
 
@@ -55,11 +64,11 @@ exports.get = function(req, res) {
 }
 ```
 
-After that. In ternimal do `npm install express express-m-router` and `node app.js`.
+Do `npm install express express-m-router` and `node app.js`.
 
-And open your browser `http://localhost:4000`, `http://localhost:4000/test/hello-world`
+See [http://localhost:4000](http://localhost:[4000) ，[http://localhost:4000/test/hello-world](http://localhost:4000/test/hello-world)
 
-* Routes name are files name.
-* If a file name includes '!' , it will be replace with ';'. That means it's a variable which you can get with `req.params`.
-* Support http **get** and **post**, just exports them in you route modules as the above example project do(optional).
+* Routes name represent files name.
+* If a file name includes '!' , it will be replace with ':'. That means it's a variable which you can get with `req.params`.
+* Support http **get** and **post** only, optionaly exports them in your route module as exampled above.
 
