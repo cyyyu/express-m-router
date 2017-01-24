@@ -14,19 +14,33 @@ let moveToLast = function(tmparray, f) {
   )
 }
 
-exports = module.exports = function(app, rootPath) {
+exports = module.exports = function(app, options) {
+  let rootPath, ignoreFiles;
+
+  if (typeof options === 'string') {
+    rootPath = options;
+  } else if (typeof options === 'object') {
+    rootPath = options.path;
+    ignoreFiles = options.ignores;
+  }
+
+  if (!rootPath) {
+    throw new Error('Please specify routes folder.')
+  }
 
   function read(p, dirname) {
     let tmp = [];
 
     fs.readdirSync(p).forEach((file) => {
       if (isDir(path.join(p, file))) {
-        
+
         let a = read(path.join(p, file), file);
 
-        tmp = concat(tmp, a)
+        tmp = concat(tmp, a);
       } else {
-        tmp.push(dirname ? path.join(p, file).replace(rootPath, '').replace(/\\/gi, '/') : `/${file}`)
+        if (!ignoreFiles || !ignoreFiles.test(file)) {
+          tmp.push(dirname ? path.join(p, file).replace(rootPath, '').replace(/\\/gi, '/') : `/${file}`);
+        }
       }
     })
 
