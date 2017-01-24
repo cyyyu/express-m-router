@@ -27,12 +27,12 @@ require('express-m-router')(expressApp, {
 
 Create a project following the below architecture.
 
-```
 -- app.js
 -- routes
   |-- test
   |  |-- !test.js
   |__ index.js
+```
 ```
 
 And create these files.
