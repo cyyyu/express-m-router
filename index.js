@@ -1,20 +1,22 @@
 'use strict'
 
-let fs = require('fs');
-let router = require('express').Router();
-let path = require('path');
-let isDir = require('./lib/is-dir');
-let concat = require('lodash').concat;
-let includes = require('lodash').includes;
+const fs = require('fs'),
+  router = require('express').Router(),
+  path = require('path'),
+  isDir = require('./lib/is-dir'),
+  {
+    concat,
+    includes
+  } = require('lodash');
 
-let moveToLast = function(tmparray, f) {
+function moveToLast(tmparray, f) {
   return concat(
     tmparray.filter(item => !includes(item, f)),
     tmparray.filter(item => includes(item, f))
   )
 }
 
-exports = module.exports = function(app, options) {
+exports = module.exports = function mRouter(app, options) {
   let rootPath, ignoreFiles;
 
   if (typeof options === 'string') {
@@ -27,6 +29,18 @@ exports = module.exports = function(app, options) {
   if (!rootPath) {
     throw new Error('Please specify routes folder.')
   }
+
+  moveToLast(read(rootPath), '!').forEach((file) => {
+
+    let fileName = file.replace(/\..+$|index/gi, '').replace('!', ':')
+
+    let t = require(path.join(rootPath, file));
+
+    t.get && router.get(fileName, t.get);
+    t.post && router.post(fileName, t.post);
+  })
+
+  app.use('/', router);
 
   function read(p, dirname) {
     let tmp = [];
@@ -48,15 +62,4 @@ exports = module.exports = function(app, options) {
   }
 
 
-  moveToLast(read(rootPath), '!').forEach((file) => {
-
-    let fileName = file.replace(/\..+$|index/gi, '').replace('!', ':')
-
-    let t = require(path.join(rootPath, file));
-
-    t.get && router.get(fileName, t.get);
-    t.post && router.post(fileName, t.post);
-  })
-
-  app.use('/', router);
 }
