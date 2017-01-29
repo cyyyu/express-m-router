@@ -1,6 +1,6 @@
 {
   "name": "express-m-router",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "mount all files in an folder as routes in an express application",
   "main": "index.js",
   "scripts": {
